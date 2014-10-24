@@ -1,0 +1,52 @@
+In the past I prepared an article about HaikuVM for the javamagazin, which ate up my spare time. Trying to make HaikuVM more popular.
+
+Now, back to your post:
+1) You are on the right track: As a first step I would love to resemble the original LiquidCrystal-HelloWorld example like this as well:
+
+~~~~~~
+public class HelloWorld {
+    static private LiquidCrystal lcd = new LiquidCrystal(12, 11, 5, 4, 3, 2);
+    // DFRobot shield
+    //static private LiquidCrystal lcd = new LiquidCrystal(8, 9, 4, 5, 6, 7);
+
+    void setup() {
+        // set up the LCD's number of columns and rows:
+        lcd.begin(16, 2);
+        // Print a message to the LCD.
+        lcd.print("hello, world!");
+    }
+
+    void loop() {
+        // set the cursor to column 0, line 1
+        // (note: line 1 is the second row, since counting begins with 0):
+        lcd.setCursor(0, 1);
+        // print the number of seconds since reset:
+        lcd.print(millis() / 1000);
+    }
+}
+~~~~~~
+
+2) This is my alternative track: Why copy *all* the source?
+Just copy 'arduino-1.0.2\libraries\LiquidCrystal'. For the rest use 'haikuVM-1.0.3\lib\clibs\libleonardo.a'. (Official version of haikuVM-1.0.3 - including Leonardo support - is comming soon.)
+
+3) You are not on the right track: Why copy into 'haikuVM-1.0.3\haikuVM'?
+Doing so will "pollute" the source of the Haiku VM itself. In my understanding, LiquidCrystal is just another project. So, copy into 'haikuVM-1.0.3\myCProject\LiquidCrystal' would be right.
+
+4) Instead of mimic the LiquidCrystal.cpp one-to-one in LiquidCrystal.java I would make shortcuts by using JNI roughly like this:
+
+~~~~~~
+public class LiquidCrystal extends Print {
+    public LiquidCrystal(int rs, int enable, int d0, int d1, int d2, int d3) {
+        constructor(rs, enable, d0, d1, d2, d3);
+    }
+    public static native constructor(int rs, int enable, int d0, int d1, int d2, int d3);
+    @Override
+    public native byte write(byte c);
+    public native void begin(int cols, int rows);
+    public native void setCursor(int col, int row);
+}
+~~~~~~
+Implementing this 4 native functions in C is easy when assuming that only one single instance of a LCD is instantiated per runtime.
+
+
+What do you think about this roadmap? Any critics?

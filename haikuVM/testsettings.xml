@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="s,S,asm">
+
+</language>
+<language name="C Source File">
+<includepath>D:\users\rossi\roboter\sourceforge.gattaca\arduino_core\src\main\c++</includepath>
+<includepath>/nanoJ2C6</includepath>
+
+</language>
+<language name="C++ Source File">
+<includepath>D:\users\rossi\roboter\sourceforge.gattaca\arduino_core\src\main\c++</includepath>
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="s,S,asm">
+
+</language>
+<language name="C Source File">
+
+</language>
+<language name="C++ Source File">
+
+</language>
+</section>
+</cdtprojectproperties>
